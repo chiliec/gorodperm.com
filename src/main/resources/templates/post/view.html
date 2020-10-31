@@ -7,8 +7,8 @@
             <p>
                 <a th:href="@{/users/username}" th:text="@{@username}"></a>&nbsp;&nbsp;&nbsp;<a th:href="@{'/posts/' + ${post.id}}" th:text="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm')}"></a>
                 <span class="navright">
-                меньше минуты
-            </span>
+                    <a th:href="@{'/posts/update?id='+${post.id}}">редактировать</a>
+                </span>
             </p>
         </header>
         <section>

@@ -2,8 +2,9 @@
 <div th:replace="fragments/menu :: copy"></div>
 <section>
     <form action="/posts/save" method="post">
-        <input name="title" type="text" placeholder="Заголовок" th:value="${title}">
-        <textarea id="mde" rows="10" name="content" th:text="${content}"></textarea>
+        <input name="id" type="hidden" th:value="${post.id ?: ''}" />
+        <input name="title" type="text" placeholder="Заголовок" th:value="${post.title ?: ''}">
+        <textarea id="mde" rows="10" name="content" th:text="${post.content ?: ''}"></textarea>
         <!--<input name="token" type="hidden" value="${token}">-->
         <button type="submit" onclick="simplemde.toTextArea();" accesskey="p">Опубликовать</button>
     </form>

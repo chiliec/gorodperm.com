@@ -31,22 +31,28 @@ public class PostController {
     }
 
     @GetMapping("/create")
-    public String create() {
-        return "post/create";
+    public String create(Model model) {
+        model.addAttribute("post", new Post());
+        return "post/edit";
     }
 
-//    @GetMapping("/update")
-//    public String create(Model model) {
-//        model.addAttribute("id", id)
-//        model.addAttribute("title", title);
-//        model.addAttribute("content", content);
-//        return "post/create";
-//    }
+    @GetMapping("/update")
+    public String update(@RequestParam("id") long id, Model model) {
+        Optional<Post> post = postService.findById(id);
+        if (post.isPresent()) {
+            model.addAttribute("post", post.get());
+        }
+        return "post/edit";
+    }
 
     @RequestMapping(value="/save", method=RequestMethod.POST)
-    public String save(@RequestParam("title") String title,
+    public String save(@RequestParam(value = "id", required = false) Long id,
+                       @RequestParam("title") String title,
                        @RequestParam("content") String content) {
         Post post = new Post();
+        if (id != null) {
+            post.setId(id);
+        }
         post.setTitle(title);
         post.setContent(content);
         Post savedPost = postService.save(post);
