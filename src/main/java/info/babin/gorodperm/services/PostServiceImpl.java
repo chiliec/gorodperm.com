@@ -20,7 +20,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Optional<Post> findById(int id) {
+    public Optional<Post> findById(long id) {
         return postRepository.findById(id);
     }
 
@@ -30,7 +30,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(long id) {
         postRepository.deleteById(id);
     }
 }

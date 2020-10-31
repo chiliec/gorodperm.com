@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PostService {
     List<Post> getAllPosts();
-    Optional<Post> findById(int id);
+    Optional<Post> findById(long id);
     Post save(Post post);
-    void deleteById(int id);
+    void deleteById(long id);
 }

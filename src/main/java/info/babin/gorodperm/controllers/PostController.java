@@ -54,10 +54,12 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public String view(@PathVariable int id, Model model) {
+    public String view(@PathVariable long id, Model model) {
         Optional<Post> post = postService.findById(id);
-        model.addAttribute("post", post);
-        model.addAttribute("currentDate", new Date());
-        return "post/list";
+        if(post.isPresent()) {
+            model.addAttribute("post", post.get());
+            model.addAttribute("currentDate", new Date());
+        }
+        return "post/view";
     }
 }

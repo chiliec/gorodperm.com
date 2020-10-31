@@ -1,0 +1,26 @@
+<div th:replace="fragments/header :: copy"></div>
+<div th:replace="fragments/menu :: copy"></div>
+<div th:if="${post != null}">
+    <article>
+        <header>
+            <!--<a href="/@${author}"><img align="left" class="u-square micro" src="/a/{{.Author}}.png" /></a>-->
+            <p>
+                <a th:href="@{/users/username}" th:text="@{@username}"></a>&nbsp;&nbsp;&nbsp;<a th:href="@{'/posts/' + ${post.id}}" th:text="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm')}"></a>
+                <span class="navright">
+                меньше минуты
+            </span>
+            </p>
+        </header>
+        <section>
+            <h3 th:text="${post.title}"></h3>
+            <p th:text="${post.content}"></p>
+            <hr/>
+        </section>
+    </article>
+</div>
+<div th:unless="${post != null}">
+    <section>
+        <p>Пост не найден...</p>
+    </section>
+</div>
+<div th:replace="fragments/footer :: copy"></div>

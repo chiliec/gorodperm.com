@@ -1,17 +1,21 @@
 package info.babin.gorodperm.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "posts")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "post_id")
-    private Long id;
+    @GeneratedValue
+    @Column(name = "id")
+    private long id;
 
     @Column(name = "title")
     private String title;
