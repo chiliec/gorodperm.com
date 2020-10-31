@@ -49,8 +49,8 @@ public class PostController {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
-        postService.save(post);
-        return "redirect:/";
+        Post savedPost = postService.save(post);
+        return "redirect:/posts/"+savedPost.getId();
     }
 
     @GetMapping("/{id}")
