@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Post {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "post_id")
     private long id;
 
     @Column(name = "title")

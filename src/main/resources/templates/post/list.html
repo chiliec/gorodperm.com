@@ -1,12 +1,14 @@
 <div th:replace="fragments/header :: copy"></div>
 <div th:replace="fragments/menu :: copy"></div>
 
-<div th:if="${#lists.isEmpty(posts)}">
-    <section>
-        <p>Постов ещё не написано...</p>
-    </section>
+<div th:if="${page.isEmpty()}" th:remove="tag">
+<section>
+    <p>Посты не найдены.</p>
+</section>
 </div>
-<th:block th:each="post : ${posts}">
+
+<div th:unless="${page.isEmpty()}" th:remove="tag">
+<th:block th:each="post : ${page}">
 <article>
     <header>
         <!--<a href="/@${author}"><img align="left" class="u-square micro" src="/a/{{.Author}}.png" /></a>-->
@@ -27,5 +29,33 @@
     </section>
 </article>
 </th:block>
+<nav>
+    <div th:if="${page.isFirst()}" th:remove="tag">
+    &laquo;
+    &nbsp;&nbsp;
+    &lsaquo;
+    </div>
+    <div th:unless="${page.isFirst()}" th:remove="tag">
+    <a th:href="@{'/posts/'}">&laquo;</a>
+    &nbsp;&nbsp;
+    <a th:href="@{'/posts/?p=' + ${page.getNumber()}}">&lsaquo;</a>
+    </div>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div th:text="${page.getNumber()+1}" th:remove="tag"></div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+
+    <div th:if="${page.isLast()}" th:remove="tag">
+    &rsaquo;
+    &nbsp;&nbsp;
+    &raquo;
+    </div>
+    <div th:unless="${page.isLast()}" th:remove="tag">
+    <a th:href="@{'/posts/?p=' + ${page.getNumber()+2}}">&rsaquo;</a>
+    &nbsp;&nbsp;
+    <a th:href="@{'/posts/?p=' + ${page.getTotalPages()}}">&raquo;</a>
+    </div>
+</nav>
+</div>
 
 <div th:replace="fragments/footer :: copy"></div>

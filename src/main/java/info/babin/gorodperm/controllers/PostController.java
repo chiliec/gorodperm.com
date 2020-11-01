@@ -4,11 +4,11 @@ import info.babin.gorodperm.models.Post;
 import info.babin.gorodperm.services.PostService;
 import info.babin.gorodperm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -23,9 +23,9 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/")
-    public String list(Model model) {
-        Collection<Post> posts = postService.getAllPosts();
-        model.addAttribute("posts", posts);
+    public String list(@RequestParam(value = "p", defaultValue = "1") int pageNumber, Model model) {
+        Page<Post> page = postService.getPostsByPage(pageNumber-1);
+        model.addAttribute("page", page);
         model.addAttribute("currentDate", new Date());
         return "post/list";
     }
@@ -62,7 +62,7 @@ public class PostController {
     @GetMapping("/{id}")
     public String view(@PathVariable long id, Model model) {
         Optional<Post> post = postService.findById(id);
-        if(post.isPresent()) {
+        if (post.isPresent()) {
             model.addAttribute("post", post.get());
             model.addAttribute("currentDate", new Date());
         }
