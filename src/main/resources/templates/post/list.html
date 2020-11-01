@@ -15,7 +15,13 @@
         <p>
             <a th:href="@{/users/username}" th:text="@{@username}"></a>&nbsp;&nbsp;&nbsp;<a th:href="@{'/posts/' + ${post.id}}" th:text="${#dates.format(currentDate, 'dd-MM-yyyy HH:mm')}"></a>
             <span class="navright">
-                меньше минуты
+                <div th:switch="${post.readingTime()}" th:remove="tag">
+                    <div th:case="'0'" th:remove="tag">меньше минуты</div>
+                    <div th:case="'1'" th:remove="tag">около минуты</div>
+                    <div th:case="*" th:remove="tag">
+                        <div th:text="@{${post.readingTime()} + ' минут'}" th:remove="tag"></div>
+                    </div>
+                </div>
             </span>
         </p>
     </header>

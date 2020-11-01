@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.StringTokenizer;
 
 @Entity
 @Data
@@ -33,4 +34,20 @@ public class Post {
 
     @Column(name = "content_hash")
     private String contentHash;
+
+    /**
+     * Calculate the reading time
+     * @return minutes
+     */
+    public int readingTime() {
+        int totalWords = totalWords(content);
+        // Dividing by average words per minute reading speed
+        return totalWords / 220;
+    }
+
+    private int totalWords(String sentence) {
+        if (sentence == null || sentence.isEmpty()) { return 0; }
+        StringTokenizer tokens = new StringTokenizer(sentence);
+        return tokens.countTokens();
+    }
 }
