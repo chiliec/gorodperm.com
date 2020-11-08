@@ -5,7 +5,7 @@
         <input name="id" type="hidden" th:value="${post.id ?: ''}" />
         <input name="title" type="text" placeholder="Заголовок" th:value="${post.title ?: ''}">
         <textarea id="mde" rows="10" name="content" th:text="${post.content ?: ''}"></textarea>
-        <!--<input name="token" type="hidden" value="${token}">-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <button type="submit" onclick="simplemde.toTextArea();" accesskey="p">Опубликовать</button>
     </form>
 </section>

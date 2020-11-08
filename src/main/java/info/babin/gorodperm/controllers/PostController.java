@@ -45,6 +45,12 @@ public class PostController {
         return "post/edit";
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") long id) {
+        postService.deleteById(id);
+        return "redirect:/posts";
+    }
+
     @RequestMapping(value="/save", method=RequestMethod.POST)
     public String save(@RequestParam(value = "id", required = false) Long id,
                        @RequestParam("title") String title,
@@ -59,9 +65,9 @@ public class PostController {
         return "redirect:/posts/"+savedPost.getId();
     }
 
-    @GetMapping("/{id}")
-    public String view(@PathVariable long id, Model model) {
-        Optional<Post> post = postService.findById(id);
+    @GetMapping("/{postId}")
+    public String view(@PathVariable long postId, Model model) {
+        Optional<Post> post = postService.findById(postId);
         if (post.isPresent()) {
             model.addAttribute("post", post.get());
             model.addAttribute("currentDate", new Date());

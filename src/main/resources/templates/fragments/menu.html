@@ -15,19 +15,28 @@
                 <!--<a href="/btm" title="bottom articles" accesskey="3">∨</a>-->
             <!--</li>-->
             <div class="navright">
-                <li>
-                    <a href="/posts/create" title="New article" accesskey="n">+</a>
-                </li>
-                <!--<li>-->
-                    <!--<a href="/@username" title="profile settings" accesskey="l">-->
-                    <!--</a>-->
-                <!--</li>-->
-                <li>
-                    <a href="/register" title="Регистрация" accesskey="r">Регистрация</a>
-                </li>
-                <li>
-                    <a href="/login" title="Вход" accesskey="l">Вход</a>
-                </li>
+                <div sec:authorize="isAuthenticated()" th:remove="tag">
+                    <li>
+                        <a href="/posts/create" title="New article" accesskey="n">+</a>
+                    </li>
+                    <li>
+                        <a href="/@username" title="profile settings" accesskey="l">
+                            <span sec:authentication="name"></span>
+                        </a>
+                    </li>
+                </div>
+                <div sec:authorize="!isAuthenticated()" th:remove="tag">
+                    <li>
+                        <a href="/register" title="Регистрация" accesskey="r">Регистрация</a>
+                    </li>
+                    <!--<form th:action="@{/logout}" method="post">-->
+                        <!--<input type="submit" value="Sign Out"/>-->
+                    <!--</form>-->
+                    <li>
+                        <a href="/login" title="Вход" accesskey="l">Вход</a>
+                    </li>
+                </div>
+
                 <li>
                     <a href="/about" title="about page" accesskey="4">?</a>
                 </li>
